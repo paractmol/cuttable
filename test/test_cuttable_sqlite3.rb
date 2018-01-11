@@ -20,6 +20,7 @@ end
 
 class User < ActiveRecord::Base
   include Cuttable
+  default_order 'id desc'
 end
 
 class TestCuttableSqlite < MiniTest::Unit::TestCase
