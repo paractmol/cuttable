@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'cuttable'
-  s.version     = '0.0.1'
+  s.version     = '0.0.4'
   s.date        = '2018-01-11'
   s.summary     = 'Escape SQL injection when you order with params'
   s.description = 'Provides method to prevent blind SQL injection'
