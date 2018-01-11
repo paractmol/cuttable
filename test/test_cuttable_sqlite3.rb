@@ -30,28 +30,28 @@ class TestCuttableSqlite < MiniTest::Unit::TestCase
   end
 
   def test_includes_concern_to_model
-    assert(User.last.id, User.cut_order('id DESC').first.id)
+    assert(User.last.id, User.sanitize_order('id DESC').first.id)
   end
 
   def test_multiple_columns
     sql = "SELECT \"#{User.table_name}\".* FROM \"#{User.table_name}\" ORDER BY postcode, id desc"
-    assert_equal(sql, User.cut_order('postcode, id DESC').to_sql)
+    assert_equal(sql, User.sanitize_order('postcode, id DESC').to_sql)
   end
 
   def test_single_column
-    assert_equal(default_sql_query, User.cut_order('id DESC').to_sql)
+    assert_equal(default_sql_query, User.sanitize_order('id DESC').to_sql)
   end
 
   def test_blind_sql_injection
-    assert_equal(default_sql_query, User.cut_order('id, (select sleep(2000) from dual where database() like database())#').to_sql)
+    assert_equal(default_sql_query, User.sanitize_order('id, (select sleep(2000) from dual where database() like database())#').to_sql)
   end
 
   def test_cuts_off_other_than_the_real_column
-    assert_equal(default_sql_query, User.cut_order('id, something desc').to_sql)
+    assert_equal(default_sql_query, User.sanitize_order('id, something desc').to_sql)
   end
 
   def test_sets_default_value_for_sort_by
-    assert_equal(default_sql_query, User.cut_order('id, something').to_sql)
+    assert_equal(default_sql_query, User.sanitize_order('id, something').to_sql)
   end
 
   def default_sql_query

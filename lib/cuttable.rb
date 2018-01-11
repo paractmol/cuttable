@@ -1,7 +1,7 @@
 module Cuttable
   extend ActiveSupport::Concern
   module ClassMethods
-    def cut_order(sql = 'id desc')
+    def sanitize_order(sql = 'id desc')
       values = sql.downcase.strip.split(/ |, /)
       sort_by = values.slice!(-1)
       return order('id desc') unless %w[asc desc].include?(sort_by) &&
