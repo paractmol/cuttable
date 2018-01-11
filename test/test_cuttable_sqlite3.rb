@@ -30,8 +30,8 @@ class TestCuttableSqlite < MiniTest::Unit::TestCase
     end
   end
 
-  def test_includes_concern_to_model
-    assert(User.last.id, User.sanitize_order('id DESC').first.id)
+  def test_nil
+    assert_equal(User.last.id, User.sanitize_order(nil).first.id)
   end
 
   def test_multiple_columns
