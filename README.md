@@ -18,3 +18,19 @@ class User < ActiveRecord::Base
   default_order 'id desc' # set default order for sanitize_order method
 end
 ```
+
+# Usage
+
+```ruby
+  # good queries
+  params[:order] = 'id DESC'
+  User.sanitize_order(params[:order])
+
+  params[:order] = 'id, username DESC'
+  User.sanitize_order(params[:order])
+
+  # bad query
+  params[:order] = 'id, (select sleep(2000) from dual where database() like database())#'
+  # it should back off to the default query you set with default_order
+  User.sanitize_order(params[:order])
+```
